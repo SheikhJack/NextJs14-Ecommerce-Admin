@@ -1,8 +1,7 @@
-import type { Metadata } from "next";
+import { ClerkProvider, RedirectToSignIn } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "../globals.css";
-
-import { ClerkProvider } from "@clerk/nextjs";
+import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <body
-         className={inter.className}
-         >
-        <ClerkProvider>
+      <body className={inter.className}>
+        <ClerkProvider
+          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        >
           {children}
         </ClerkProvider>
-          </body>
-      </html>
+      </body>
+    </html>
   );
 }
