@@ -1,11 +1,13 @@
 import React from 'react'
-import { SignIn } from '@clerk/nextjs';
+import { SignIn } from '@clerk/nextjs'
 
 
 
 function page() {
   return (
-    <SignIn/>
+    <div className='h-screen flex justify-center items-center'>
+      <SignIn/>
+    </div>
   )
 }
 
