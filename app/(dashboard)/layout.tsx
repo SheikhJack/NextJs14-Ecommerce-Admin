@@ -2,6 +2,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../globals.css';
+import LeftSideBar from '@/components/layout/LeftSideBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,13 +18,18 @@ export default function RootLayout({
 }) {
   return (
     <>
+    <ClerkProvider>
       <html lang="en">
-        <body>
-          <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+        <body className={inter.className}>
+          <div className='flex max-lg:flex-col text-grey-1'>
+            <LeftSideBar />
+            <div className='flex-1'>
             {children}
-          </ClerkProvider>
+            </div>
+          </div>
         </body>
       </html>
+    </ClerkProvider>
     </>
   );
 }
