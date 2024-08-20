@@ -3,7 +3,7 @@ import CollectionForm from "@/components/collections/CollectionForm"
 
 function CreateCollection() {
   return (
-    <div>CreateCollection
+    <div>
     <CollectionForm />
     </div>
   )
