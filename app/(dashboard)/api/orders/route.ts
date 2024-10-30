@@ -72,12 +72,12 @@ export const POST = async (req: NextRequest) => {
       customerClerkId: user.id,
       email: user.emailAddresses[0].emailAddress,
       username: user.username,
-      products: cartItems.map(({ item, quantity }: CartItem) => ({
-        product: item?._id || null,   
-        quantity: quantity,
-        color: item?.color || "defaultColor",    
-        size: item?.size || "defaultSize",      
-      })).filter((product: { product: null; }) => product.product !== null), 
+      products: cartItems.map((cartItem: { item: { _id: string | null; price?: number; color?: string; size?: string; }; quantity: number; }) => ({
+        product: cartItem.item?._id || null,
+        quantity: cartItem.quantity,
+        color: cartItem.item?.color || "defaultColor",
+        size: cartItem.item?.size || "defaultSize",
+      })).filter((product: { product: string | null }) => product.product !== null), 
       totalAmount: cartItems.reduce(
         (acc: number, cartItem: { item: { price?: number; }; quantity: number }) =>
           acc + (cartItem.item?.price || 0) * cartItem.quantity,
