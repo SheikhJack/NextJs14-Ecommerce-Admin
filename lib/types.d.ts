@@ -46,3 +46,13 @@ type CustomerType = {
 type DeleteType = {
   _Id: any;
 }
+
+type CartItem = {
+  item: {
+    _id: string | null;
+    color?: string;
+    size?: string | null;
+    price
+  };
+  quantity: number;
+};
