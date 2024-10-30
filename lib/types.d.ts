@@ -52,7 +52,7 @@ type CartItem = {
     _id: string | null;
     color?: string;
     size?: string | null;
-    price
+    price: any
   };
   quantity: number;
 };

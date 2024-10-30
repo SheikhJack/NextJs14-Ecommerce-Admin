@@ -1,10 +1,21 @@
 import Customer from "@/lib/models/Customer";
 import Order from "@/lib/models/Order";
 import { connectToDB } from "@/lib/mongoDB";
-import { cartItem } from "@/lib/types";
 
 import { NextRequest, NextResponse } from "next/server";
 import { format } from "date-fns";
+
+
+type CartItem = {
+  item: {
+    _id: string | null;
+    price?: number;
+    color?: string;
+    size?: string;
+  };
+  quantity: number;
+};
+
 
 
 
