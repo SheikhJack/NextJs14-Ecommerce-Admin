@@ -17,6 +17,7 @@ import {
 import toast from 'react-hot-toast'
 
 interface DeleteProps {
+    item: string;
     id: string;
 }
 

@@ -20,7 +20,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import ImageUpload from "../custom ui/ImageUpload";
-import { CollectionType } from "@/lib/types";
 import Delete from "../custom ui/Delete";
 
 const formSchema = z.object({
@@ -49,6 +48,8 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
     },
   })
 
+  console.log(initialData)
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = initialData ? `/api/collections/${params.collectionId}` : "/api/collections";
@@ -61,6 +62,9 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
         toast.success(`Collections ${initialData ? "updated" : "created"}`)
         window.location.href = "/collections";
         router.push("/collections")
+      }else{
+        
+        window.location.href = "/sign-in";
       }
     } catch (err) {
       console.log("[collections_POST]", err)
@@ -74,7 +78,7 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
       {initialData ? (
         <div className="flex items-center justify-between">
           <p className="text-heading2-bold">Edit Collection</p>
-          <Delete id={initialData._id} />
+          <Delete id={initialData._id}  item="collection"/>
         </div>
       ) : (<p className="text-heading2-bold">Create Collection</p>)}
       <Separator className="bg-grey-1 mt-4 mb-7" />

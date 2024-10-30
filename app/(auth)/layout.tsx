@@ -6,7 +6,7 @@ import { Metadata } from "next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MichStore - Admin Auth",
+  title: "Oneway - Admin Auth",
   description: "Admin dashboard to manage MichStore's data",
 };
 

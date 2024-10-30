@@ -31,6 +31,7 @@ function Collections() {
         }
     }
     useEffect(() => {
+        console.log("data")
         getCollections()
     }, [])
 

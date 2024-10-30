@@ -1,16 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
+import { connectToDB } from '@/lib/mongoDB';
 
 import  Collection  from '@/lib/models/Collections';
-import { connectToDB } from '@/lib/mongoDB';
 
 
 
 export const POST = async (req: NextRequest) => {
     try{
-        const {userId} = auth();
-        console.log('User ID:', userId);
-
+        const { userId } = auth();
+    
         if(!userId){
             return new NextResponse("unauthourized", { status: 401})
         }
@@ -50,10 +49,10 @@ export const POST = async (req: NextRequest) => {
 export const GET = async (req: NextRequest) => {
     try {
         await connectToDB()
-
+        console.log("connected to db")
         const  collections = await Collection.find().sort({ createdAt: "desc" })
-    console.log("data", collections)
 
+        console.log("render:", collections)
         return NextResponse.json(collections, {status: 200})
 
     } catch (error) {

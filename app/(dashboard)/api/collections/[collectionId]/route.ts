@@ -1,27 +1,49 @@
 import Collection from "@/lib/models/Collections";
+import Product from "@/lib/models/Product";
 import { connectToDB } from "@/lib/mongoDB";
+
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+import mongoose from 'mongoose';
+import { ObjectId } from "mongodb";
 
 
-export const GET = async (req: NextRequest, { params }: {params: {collectionId: string}}) => {
-    try {
-        await connectToDB()
 
-        const collection = await Collection.findById(params.collectionId)
-        console.log(params.collectionId)
+export const GET = async (
+  req: NextRequest,
+  { params }: { params: { collectionId: string } }
+) => {
+  try {
+    
+    await connectToDB();
+    console.log("Connected to DB");
 
-        if(!collection){
-            return new NextResponse("collection not found", {status:500})
-        }
-
-        return NextResponse.json(collection, {status: 200})
-
-    } catch (error) {
-        console.log("[collectionId_GET]", error)
-        return new NextResponse("Internal error", {status:500})
+    const collectionId = params.collectionId;
+     
+    if (!mongoose.Types.ObjectId.isValid(collectionId)) {
+      return new NextResponse(
+        JSON.stringify({ message: "Invalid collection ID format" }),
+        { status: 400 }
+      );
     }
-}
+    
+    const collection = await Collection.findById(new mongoose.Types.ObjectId(params.collectionId))
+      .populate({
+        path: "products",
+        model: Product,
+      });
+
+console.log("connected", params.collectionId);
+
+
+    return NextResponse.json(collection, { status: 200 });
+  } catch (err) {
+    console.log('[collectionId_GET]', err);
+    return new NextResponse('Internal error', { status: 500 });
+  }
+};
+
+  
 export const POST = async (req: NextRequest, { params }: {params: {collectionId: string}})=> {
     try {
         const { userId } = auth();
