@@ -6,17 +6,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { format } from "date-fns";
 
 
-type CartItem = {
-  item: {
-    _id: string | null;
-    price?: number;
-    color?: string;
-    size?: string;
-  };
-  quantity: number;
-};
-
-
 
 
 export const GET = async (req: NextRequest) => {
@@ -65,6 +54,17 @@ export const OPTIONS = async (req: NextRequest) => {
 
 
 export const POST = async (req: NextRequest) => {
+
+  type CartItem = {
+    item: {
+      _id: string | null;
+      price?: number;
+      color?: string;
+      size?: string;
+    };
+    quantity: number;
+  };
+  
   const origin = req.headers.get('origin');
   console.log("Received POST request at /api/orders");
 
