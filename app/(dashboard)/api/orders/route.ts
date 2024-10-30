@@ -55,16 +55,8 @@ export const OPTIONS = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
 
-  type CartItem = {
-    item: {
-      _id: string | null;
-      price?: number;
-      color?: string;
-      size?: string;
-    };
-    quantity: number;
-  };
   
+
   const origin = req.headers.get('origin');
   console.log("Received POST request at /api/orders");
 
@@ -87,8 +79,8 @@ export const POST = async (req: NextRequest) => {
         size: item?.size || "defaultSize",      
       })).filter((product: { product: null; }) => product.product !== null), 
       totalAmount: cartItems.reduce(
-        (acc: number, { item, quantity }: CartItem) =>
-          acc + (item?.price || 0) * quantity,  
+        (acc: number, cartItem: { item: { price?: number; }; quantity: number }) =>
+          acc + (cartItem.item?.price || 0) * cartItem.quantity,
         0
       ),
     });
