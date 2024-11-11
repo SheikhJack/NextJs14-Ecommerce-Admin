@@ -7,7 +7,6 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest, { params }: { params: { orderId: String }}) => {
   try {
     await connectToDB()
-    console.log("orderId:", connectToDB)
 
     const orderDetails = await Order.findById(params.orderId).populate({
       path: "products.product",

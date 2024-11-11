@@ -55,8 +55,6 @@ export const OPTIONS = async (req: NextRequest) => {
 
 export const POST = async (req: NextRequest) => {
 
-  
-
   const origin = req.headers.get('origin');
   console.log("Received POST request at /api/orders");
 
@@ -77,6 +75,7 @@ export const POST = async (req: NextRequest) => {
         quantity: cartItem.quantity,
         color: cartItem.item?.color || "defaultColor",
         size: cartItem.item?.size || "defaultSize",
+        price: cartItem.item?.price 
       })).filter((product: { product: string | null }) => product.product !== null), 
       totalAmount: cartItems.reduce(
         (acc: number, cartItem: { item: { price?: number; }; quantity: number }) =>
